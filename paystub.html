@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Paystub Generator – IDEATE FORWARD CONSULTING LLC</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="paystub.css" />
+  <!-- 1) load local jsPDF FIRST -->
+  <script src="jspdf.umd.min.js"></script>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <!-- your local logo -->
+      <img src="paystub.png" alt="IDEATE FORWARD" class="logo" />
+      <h1>Paystub Generator</h1>
+      <p>Generate employee paystubs for IDEATE FORWARD CONSULTING LLC.</p>
+    </header>
+
+    <form id="paystub-form">
+      <!-- Company -->
+      <section>
+        <h2>Company Info</h2>
+        <div class="grid">
+          <label>Company Name
+            <input type="text" id="companyName"
+                   value="IDEATE FORWARD CONSULTING LLC" readonly />
+          </label>
+          <label>Company Address
+            <input type="text" id="companyAddress"
+                   value="823 Pine Village Ct, Ballwin, MO 63021-6144" readonly />
+          </label>
+          <label>Company Phone
+            <input type="text" id="companyPhone"
+                   value="+1 (860) 794-8727" readonly />
+          </label>
+        </div>
+      </section>
+
+      <!-- Employee -->
+      <section>
+        <h2>Employee Info</h2>
+        <div class="grid">
+          <label>Employee Name
+            <input type="text" id="employeeName" required />
+          </label>
+          <label>Employee ID (Last 4 digits of SSN)
+            <input type="text" id="employeeId" maxlength="4" />
+          </label>
+          <label>Employee Address
+            <input type="text" id="employeeAddress" />
+          </label>
+          <label>PayPal (email or @handle)
+            <input type="text" id="employeePaypal" />
+          </label>
+        </div>
+      </section>
+
+      <!-- Pay details -->
+      <section>
+        <h2>Pay Details</h2>
+        <div class="grid">
+          <label>Pay Date
+            <input type="date" id="payDate" required />
+          </label>
+          <label>Pay Period (e.g. 10/25/25 - 11/08/25)
+            <input type="text" id="payPeriod" />
+          </label>
+          <label>Pay Frequency
+            <select id="payFrequency">
+              <option value="weekly">Weekly</option>
+              <option value="biweekly" selected>Bi-weekly</option>
+              <option value="semimonthly">Semi-monthly</option>
+              <option value="monthly">Monthly</option>
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <!-- Earnings -->
+      <section>
+        <h2>Earnings</h2>
+        <div class="grid">
+          <label>Hours Worked
+            <input type="number" id="hoursWorked" value="20" step="0.01" />
+          </label>
+          <label>Hourly Rate
+            <input type="number" id="hourlyRate" value="15" step="0.01" />
+          </label>
+          <label>Other Earnings (bonus, tips)
+            <input type="number" id="otherEarnings" value="0" step="0.01" />
+          </label>
+        </div>
+      </section>
+
+      <!-- Deductions -->
+      <section>
+        <h2>Deductions / Taxes</h2>
+        <p class="hint">Default Missouri-based values. Adjust if needed.</p>
+        <div class="grid">
+          <label>Federal Tax % 
+            <input type="number" id="fedTaxPct" value="10" step="0.01" />
+          </label>
+          <label>State Tax % (Missouri)
+            <input type="number" id="stateTaxPct" value="5.3" step="0.01" />
+          </label>
+          <label>Social Security % 
+            <input type="number" id="ssPct" value="6.2" step="0.01" />
+          </label>
+          <label>Medicare % 
+            <input type="number" id="medicarePct" value="1.45" step="0.01" />
+          </label>
+          <label>Other Deduction ($)
+            <input type="number" id="otherDeduction" value="0" step="0.01" />
+          </label>
+        </div>
+      </section>
+
+      <div class="actions">
+        <button type="button" id="previewBtn">Preview Totals</button>
+        <button type="button" id="downloadBtn" class="primary">Download PDF</button>
+      </div>
+    </form>
+
+    <div id="preview" class="preview hidden">
+      <h2>Stub Preview (calculated)</h2>
+      <p><strong>Gross Pay:</strong> $<span id="p_gross">0.00</span></p>
+      <p><strong>Total Deductions:</strong> $<span id="p_deductions">0.00</span></p>
+      <p><strong>Net Pay:</strong> $<span id="p_net">0.00</span></p>
+    </div>
+  </div>
+
+  <!-- 2) load YOUR JS LAST -->
+  <script src="paystub.js"></script>
+</body>
+</html>
